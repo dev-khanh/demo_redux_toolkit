@@ -8,11 +8,11 @@ import {
 } from 'react-native';
 
 import {useSelector, useDispatch} from 'react-redux';
-import {increment, decrement, incrementAsync} from '../slice/counterSlice';
+import {increment, decrement, incrementAsync} from '../slices/counter_slice';
 
-export default () => {
-  const count = useSelector(state => state.counter.value);
-  const isLoading = useSelector(state => state.counter.isLoading);
+function ConnectRedux() {
+  const count = useSelector(state => state.counterSlice.value);
+  const isLoading = useSelector(state => state.counterSlice.loading);
   const dispatch = useDispatch();
   const [incrementAmount] = useState('2');
 
@@ -52,7 +52,7 @@ export default () => {
       </TouchableOpacity>
     </View>
   );
-};
+}
 const styles = StyleSheet.create({
   row: {
     flex: 1,
@@ -82,3 +82,4 @@ const styles = StyleSheet.create({
   activityView: {marginRight: 20},
   viewMarginTop: {marginTop: 15},
 });
+export default ConnectRedux;

@@ -1,12 +1,15 @@
 import React from 'react';
-import {store} from './store/store';
 import {Provider} from 'react-redux';
-import ConnectRedux from './screen/ConnectRedux';
+import ConnectRedux from './screen/connect_redux';
+import {PersistGate} from 'redux-persist/integration/react';
+import {store, persistor} from './store';
 
 function App() {
   return (
     <Provider store={store}>
-      <ConnectRedux />
+      <PersistGate loading={null} persistor={persistor}>
+        <ConnectRedux />
+      </PersistGate>
     </Provider>
   );
 }
