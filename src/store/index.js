@@ -1,7 +1,8 @@
 import storage from '@react-native-community/async-storage';
-import {createStore, applyMiddleware, compose, combineReducers} from 'redux';
+import {combineReducers} from 'redux';
 import {persistStore, persistReducer, createMigrate} from 'redux-persist';
 import thunk from 'redux-thunk';
+import {configureStore} from '@reduxjs/toolkit';
 
 import Reactotron from '../config/reactotronConfig';
 import reducers from '../slices';
@@ -48,17 +49,10 @@ const rootReducer = combineReducers({...reducers});
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-export const store = createStore(
-  persistedReducer,
-  {},
-  compose(
-    applyMiddleware(
-      thunk,
-      // cacheAdsImage,
-      // logger,
-    ),
-    Reactotron.createEnhancer(),
-  ),
-);
+export const store = configureStore({
+  reducer: persistedReducer,
+  middleware: [thunk],
+  enhancers: [Reactotron.createEnhancer()],
+});
 
 export const persistor = persistStore(store);

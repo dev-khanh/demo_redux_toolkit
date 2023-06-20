@@ -13,6 +13,11 @@ import {increment, decrement, incrementAsync} from '../slices/counter_slice';
 function ConnectRedux() {
   const count = useSelector(state => state.counterSlice.value);
   const isLoading = useSelector(state => state.counterSlice.loading);
+  // const item = useSelector(state => ({
+  //   loading: state.counterSlice?.loading,
+  //   value: state.counterSlice?.value,
+  // }));
+  // item.loading;
   const dispatch = useDispatch();
   const [incrementAmount] = useState('2');
 

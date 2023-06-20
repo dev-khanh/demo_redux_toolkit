@@ -9,7 +9,7 @@ import Reactotron, {
 import {reactotronRedux} from 'reactotron-redux';
 
 const config = {
-  name: 'React Native Demo',
+  name: 'DelegateConnect',
   host: NativeModules.SourceCode.scriptURL.split('://')[1].split(':')[0],
 };
 
