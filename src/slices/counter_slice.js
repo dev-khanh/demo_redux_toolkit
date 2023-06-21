@@ -1,19 +1,35 @@
-import {createAsyncThunk, createSlice, createSelector} from '@reduxjs/toolkit';
+import {
+  createAsyncThunk,
+  createSlice,
+  createSelector,
+  createAction,
+} from '@reduxjs/toolkit';
 
-// import {getMenus} from 'api';
+import {getMenus} from '../api';
 
 const initialState = {
   loading: false,
   value: 0,
+  id: 0,
+  arrayList: {},
 };
 
-// export const fetchUserById = createAsyncThunk(
-//   'users/fetchByIdStatus',
-//   async () => {
-//     const response = await getMenus();
-//     return response;
-//   },
-// );
+export const fetchUserById = createAsyncThunk(
+  'users/fetchByIdStatus',
+  async () => {
+    const response = await getMenus();
+    return response;
+  },
+);
+
+export const addAction = createAction('contacts/action', newAction => {
+  return {
+    payload: {
+      ...newAction,
+      id: 1,
+    },
+  };
+});
 
 export const incrementAsync = amount => dispatch => {
   try {
@@ -44,14 +60,24 @@ const counterSlice = createSlice({
       state.value += action.payload;
     },
   },
-  // extraReducers: {
-  //   [fetchUserById.fulfilled]: (state, action) => {
-  //     state.arrayList = action.payload;
-  //   },
-  // },
+  extraReducers: {
+    [addAction]: (state, {payload}) => {
+      return {value: state.value + 1};
+    },
+    [fetchUserById.fulfilled]: (state, action) => {
+      state.arrayList = action.payload;
+    },
+  },
 });
 
 export const {setLoading, increment, decrement, incrementByAmount} =
   counterSlice.actions;
+
+const selectSlice = state => state.CounterSlice;
+
+export const selectLoading = createSelector(
+  selectSlice,
+  CounterSlice => CounterSlice.loading || false,
+);
 
 export default counterSlice.reducer;

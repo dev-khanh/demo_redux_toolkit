@@ -8,11 +8,18 @@ import {
 } from 'react-native';
 
 import {useSelector, useDispatch} from 'react-redux';
-import {increment, decrement, incrementAsync} from '../slices/counter_slice';
+import {
+  increment,
+  decrement,
+  incrementAsync,
+  selectLoading,
+  addAction,
+  fetchUserById,
+} from '../slices/counter_slice';
 
 function ConnectRedux() {
-  const count = useSelector(state => state.counterSlice.value);
-  const isLoading = useSelector(state => state.counterSlice.loading);
+  const count = useSelector(state => state.CounterSlice.value);
+  const isLoading = useSelector(selectLoading);
   // const item = useSelector(state => ({
   //   loading: state.counterSlice?.loading,
   //   value: state.counterSlice?.value,
@@ -20,6 +27,10 @@ function ConnectRedux() {
   // item.loading;
   const dispatch = useDispatch();
   const [incrementAmount] = useState('2');
+
+  const onPressUseAction = () => dispatch(addAction());
+
+  const onPressFetchUserById = () => dispatch(fetchUserById());
 
   const onPressIncrement = () => dispatch(increment());
 
@@ -54,6 +65,14 @@ function ConnectRedux() {
         ) : (
           <Text style={styles.text}>Add Async</Text>
         )}
+      </TouchableOpacity>
+      <View style={styles.viewMarginTop} />
+      <TouchableOpacity style={styles.button} onPress={onPressUseAction}>
+        <Text style={styles.text}>Use Action</Text>
+      </TouchableOpacity>
+      <View style={styles.viewMarginTop} />
+      <TouchableOpacity style={styles.button} onPress={onPressFetchUserById}>
+        <Text style={styles.text}>Fetch API</Text>
       </TouchableOpacity>
     </View>
   );

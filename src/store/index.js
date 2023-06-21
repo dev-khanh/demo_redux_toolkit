@@ -6,6 +6,7 @@ import {configureStore} from '@reduxjs/toolkit';
 
 import Reactotron from '../config/reactotronConfig';
 import reducers from '../slices';
+import logger from 'redux-logger';
 
 if (__DEV__) {
   import('../config/reactotronConfig').then(() => {});
@@ -51,7 +52,7 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
   reducer: persistedReducer,
-  middleware: [thunk],
+  middleware: [thunk, logger],
   enhancers: [Reactotron.createEnhancer()],
 });
 
