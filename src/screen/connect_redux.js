@@ -14,10 +14,9 @@ import {
   incrementAsync,
   selectLoading,
   addAction,
-  fetchUserById,
 } from '../slices/counter_slice';
 
-function ConnectRedux() {
+function ConnectRedux({navigation}) {
   const count = useSelector(state => state.CounterSlice.value);
   const isLoading = useSelector(selectLoading);
   // const item = useSelector(state => ({
@@ -29,8 +28,6 @@ function ConnectRedux() {
   const [incrementAmount] = useState('2');
 
   const onPressUseAction = () => dispatch(addAction());
-
-  const onPressFetchUserById = () => dispatch(fetchUserById());
 
   const onPressIncrement = () => dispatch(increment());
 
@@ -71,8 +68,10 @@ function ConnectRedux() {
         <Text style={styles.text}>Use Action</Text>
       </TouchableOpacity>
       <View style={styles.viewMarginTop} />
-      <TouchableOpacity style={styles.button} onPress={onPressFetchUserById}>
-        <Text style={styles.text}>Fetch API</Text>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate('Test')}>
+        <Text style={styles.text}>Push Navigate</Text>
       </TouchableOpacity>
     </View>
   );
