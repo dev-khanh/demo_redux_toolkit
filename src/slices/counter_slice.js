@@ -80,4 +80,9 @@ export const selectLoading = createSelector(
   CounterSlice => CounterSlice.loading || false,
 );
 
+export const selectArrayList = createSelector(
+  selectSlice,
+  CounterSlice => CounterSlice.arrayList || {},
+);
+
 export default counterSlice.reducer;

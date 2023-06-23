@@ -1,15 +1,32 @@
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
-import {fetchUserById} from '../slices/counter_slice';
-import {useDispatch} from 'react-redux';
+import {fetchUserById, selectArrayList} from '../slices/counter_slice';
+import {useDispatch, useSelector} from 'react-redux';
 import React from 'react';
 
 function TextFetchApi() {
   const dispatch = useDispatch();
 
   const onPressFetchUserById = () => dispatch(fetchUserById());
+  const item = useSelector(selectArrayList);
 
   return (
     <View style={styles.row}>
+      <View style={styles.flexRow}>
+        <Text style={styles.text}>UserId: </Text>
+        <Text style={[styles.text, styles.colorText]}>
+          {item.userId ?? '...'}
+        </Text>
+      </View>
+      <View style={styles.flexRow}>
+        <Text style={styles.text}>ID: </Text>
+        <Text style={[styles.text, styles.colorText]}>{item.id ?? '...'}</Text>
+      </View>
+      <View style={styles.flexRow}>
+        <Text style={styles.text}>Title: </Text>
+        <Text style={[styles.text, styles.colorText]}>
+          {item.title ?? '...'}
+        </Text>
+      </View>
       <TouchableOpacity style={styles.button} onPress={onPressFetchUserById}>
         <Text style={styles.text}>Fetch User ID</Text>
       </TouchableOpacity>
@@ -22,6 +39,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  flexRow: {flexDirection: 'row'},
+  colorText: {color: 'red'},
   button: {
     appearance: 'none',
     border: 'none',
