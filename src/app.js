@@ -1,6 +1,5 @@
 import React from 'react';
 import {Provider} from 'react-redux';
-// import ConnectRedux from './screen/connect_redux';
 import {PersistGate} from 'redux-persist/integration/react';
 import {store, persistor} from './store';
 
